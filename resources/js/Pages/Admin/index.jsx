@@ -2,7 +2,6 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
 export default function index({ auth, posts }) {
-    console.log(posts);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -15,10 +14,10 @@ export default function index({ auth, posts }) {
             <Head title="admin panel" />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 p-8">
-                {posts.data.map((post) => (
-                    <Link>
+                {posts.data.map((post, key) => (
+                    <Link href={route("admin.posts.edit", post.slug)}>
                         <div
-                            key={post.id}
+                            key={key}
                             className="bg-white overflow-hidden shadow-sm rounded-lg"
                         >
                             <div className="px-6 py-4">

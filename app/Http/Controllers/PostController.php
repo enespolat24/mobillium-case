@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Inertia\Inertia;
 
-class AdminController extends Controller
+class PostController extends Controller
 {
     public function index()
     {
@@ -14,8 +14,12 @@ class AdminController extends Controller
         ]);
     }
 
-    public function editPosts(Post $post)
+    public function edit(Post $post)
     {
+        $post->fill([
+            'title' => request('title'),
+            'content' => request('content'),
+        ])->save();
 
         return Inertia::render('Admin/editPost', [
             'post' => $post,
