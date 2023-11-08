@@ -22,8 +22,6 @@ class PostController extends Controller
             'is_published' => request('is_published') ? true : false,
         ])->save();
 
-        return Inertia::render('Admin/editPost', [
-            'post' => $post,
-        ]);
+        return redirect()->back();
     }
 }
