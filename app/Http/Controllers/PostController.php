@@ -22,6 +22,7 @@ class PostController extends Controller
             'is_published' => request('is_published') ? true : false,
         ])->save();
 
+        return redirect()->route('admin.posts.edit', $post->slug);
     }
 
     public function destroy(Post $post)
