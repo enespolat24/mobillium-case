@@ -13,6 +13,7 @@ class Post extends Model
         'title',
         'content',
         'published',
+        'author_id',
     ];
 
     public function user()
