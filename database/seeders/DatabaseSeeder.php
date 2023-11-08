@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleAndPermissionSeeder::class,
             TestSeeder::class,
+            MobilliumCredentialSeeder::class,
         ]);
     }
 }

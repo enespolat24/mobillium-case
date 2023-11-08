@@ -16,6 +16,6 @@ class MobilliumCredentialSeeder extends Seeder
             'email' => 'admin@mobillium.com',
             'password' => bcrypt('mobillium'),
             'name' => 'Mobillium Admin',
-        ]);
+        ])->assignRole('admin');
     }
 }
