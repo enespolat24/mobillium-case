@@ -10,7 +10,7 @@ class AdminController extends Controller
     public function index()
     {
         return Inertia::render('Admin/index', [
-            'posts' => Post::with('votes', 'author')->paginate(6),
+            'posts' => Post::with('votes', 'author')->get(),
         ]);
     }
 
