@@ -2,10 +2,11 @@ import { Link, router } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function EditPost({ post }) {
+    console.log(post.is_published);
     const [values, setValues] = useState({
         title: post.title,
         content: post.content,
-        published: "",
+        published: post.is_published,
     });
     function handleChange(e) {
         const key = e.target.id;
@@ -90,9 +91,9 @@ export default function EditPost({ post }) {
                     <input
                         type="checkbox"
                         id="published"
-                        value={values.published}
+                        value={values.is_published == 1}
                         onChange={handleChange}
-                        className="ml-2 leading-tight"
+                        className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                 </div>
 

@@ -19,6 +19,7 @@ class PostController extends Controller
         $post->fill([
             'title' => request('title'),
             'content' => request('content'),
+            'is_published' => request('is_published') ? true : false,
         ])->save();
 
         return Inertia::render('Admin/editPost', [
