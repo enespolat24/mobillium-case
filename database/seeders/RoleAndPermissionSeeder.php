@@ -14,8 +14,9 @@ class RoleAndPermissionSeeder extends Seeder
     public function run(): void
     {
         $adminRole = Role::create(['name' => 'admin']);
-        $userRole = Role::create(['name' => 'user']);
+        $moderatorRole = Role::create(['name' => 'moderator']);
         $authorRole = Role::create(['name' => 'author']);
+        $readerRole = Role::create(['name' => 'reader']);
 
         Permission::create(['name' => 'create post']);
         Permission::create(['name' => 'edit post']);
@@ -25,7 +26,8 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'vote post']);
 
         $adminRole->givePermissionTo(Permission::all());
+        $moderatorRole->givePermissionTo(['publish post', 'unpublish post']);
         $authorRole->givePermissionTo(['create post', 'edit post', 'delete post']);
-        $userRole->givePermissionTo(['vote post']);
+        $readerRole->givePermissionTo(['vote post']);
     }
 }
