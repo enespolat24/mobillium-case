@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -24,6 +25,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/posts/{post}/edit', [AdminController::class, 'editPosts'])->name('admin.posts.edit');
+});
+
+Route::prefix('authors')->middleware(['auth'])->group(function () {
+    Route::get('/', [AuthorController::class, 'index'])->name('authors.index');
+    Route::get('/{author}', [AuthorController::class, 'show'])->name('authors.show');
 });
 
 Route::get('/dashboard', function () {
