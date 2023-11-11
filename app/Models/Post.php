@@ -17,6 +17,8 @@ class Post extends Model
         'slug',
         'content',
         'is_published',
+        'view_count',
+        'rating',
         'author_id',
     ];
 
