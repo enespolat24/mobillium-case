@@ -1,7 +1,18 @@
 import { Link } from "@inertiajs/react";
+import { useState } from "react";
 import Dropdown from "./Dropdown";
 
 function Navbar({ auth }) {
+    const [showAuthDropdown, setShowAuthDropdown] = useState(false);
+
+    const toggleAuthDropdown = () => {
+        setShowAuthDropdown(!showAuthDropdown);
+    };
+
+    const closeAuthDropdown = () => {
+        setShowAuthDropdown(false);
+    };
+
     return (
         <nav className="bg-gray-800 p-4">
             <div className="container mx-auto">
@@ -14,44 +25,97 @@ function Navbar({ auth }) {
                     </Link>
 
                     <div className="flex items-center space-x-4">
-                        <Dropdown>
-                            <Dropdown.Trigger>
-                                <span className="inline-flex rounded-md">
+                        {!auth.user && (
+                            <Dropdown>
+                                <Dropdown.Trigger>
                                     <button
+                                        onClick={toggleAuthDropdown}
                                         type="button"
                                         className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                     >
-                                        {auth.user?.name}
-
-                                        <svg
-                                            className="ms-2 -me-0.5 h-4 w-4"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                        >
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clipRule="evenodd"
-                                            />
-                                        </svg>
+                                        Login && Register
                                     </button>
-                                </span>
-                            </Dropdown.Trigger>
+                                </Dropdown.Trigger>
 
-                            <Dropdown.Content>
-                                <Dropdown.Link href={route("profile.edit")}>
-                                    Profile
-                                </Dropdown.Link>
-                                <Dropdown.Link
-                                    href={route("logout")}
-                                    method="post"
-                                    as="button"
-                                >
-                                    Log Out
-                                </Dropdown.Link>
-                            </Dropdown.Content>
-                        </Dropdown>
+                                {showAuthDropdown && (
+                                    <Dropdown.Content>
+                                        {auth.user ? (
+                                            <>
+                                                <Dropdown.Link
+                                                    href={route("profile.edit")}
+                                                >
+                                                    Profile
+                                                </Dropdown.Link>
+                                                <Dropdown.Link
+                                                    href={route("logout")}
+                                                    method="post"
+                                                    as="button"
+                                                    onClick={closeAuthDropdown}
+                                                >
+                                                    Log Out
+                                                </Dropdown.Link>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Dropdown.Link
+                                                    href={route("login")}
+                                                    onClick={closeAuthDropdown}
+                                                >
+                                                    Login
+                                                </Dropdown.Link>
+                                                <Dropdown.Link
+                                                    href={route("register")}
+                                                    onClick={closeAuthDropdown}
+                                                >
+                                                    Register
+                                                </Dropdown.Link>
+                                            </>
+                                        )}
+                                    </Dropdown.Content>
+                                )}
+                            </Dropdown>
+                        )}
+
+                        {auth.user && (
+                            <Dropdown>
+                                <Dropdown.Trigger>
+                                    <span className="inline-flex rounded-md">
+                                        <button
+                                            type="button"
+                                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                        >
+                                            {auth.user?.name}
+
+                                            <svg
+                                                className="ms-2 -me-0.5 h-4 w-4"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                            >
+                                                <path
+                                                    fillRule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clipRule="evenodd"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </span>
+                                </Dropdown.Trigger>
+
+                                <Dropdown.Content>
+                                    <Dropdown.Link href={route("profile.edit")}>
+                                        Profile
+                                    </Dropdown.Link>
+                                    <Dropdown.Link
+                                        href={route("logout")}
+                                        method="post"
+                                        as="button"
+                                    >
+                                        Log Out
+                                    </Dropdown.Link>
+                                </Dropdown.Content>
+                            </Dropdown>
+                        )}
 
                         {auth.user && auth.user.has_admin_role && (
                             <Link
