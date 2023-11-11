@@ -27,9 +27,9 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/posts/{post}/edit', [AdminController::class, 'editPosts'])->name('admin.posts.edit');
 });
 
-Route::prefix('authors')->middleware(['auth'])->group(function () {
+Route::prefix('author-panel')->middleware(['auth'])->group(function () {
     Route::get('/', [AuthorController::class, 'index'])->name('authors.index');
-    Route::get('/{author}', [AuthorController::class, 'show'])->name('authors.show');
+    Route::get('/{post}/edit', [AuthorController::class, 'edit'])->name('authors.edit');
 });
 
 Route::get('/dashboard', function () {

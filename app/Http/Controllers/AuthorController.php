@@ -14,9 +14,10 @@ class AuthorController extends Controller
         ]);
     }
 
-    public function show()
+    public function edit(Post $post)
     {
-        // return Inertia::render('Author/Show');
-        return 'e';
+        return Inertia::render('Author/editPost', [
+            'post' => $post,
+        ]);
     }
 }
