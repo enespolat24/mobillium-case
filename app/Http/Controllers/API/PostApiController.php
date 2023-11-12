@@ -88,4 +88,32 @@ class PostApiController extends Controller
             return response()->json(['message' => 'Post deletion failed', 'error' => $e->getMessage()], 500);
         }
     }
+
+    public function publish(Request $request)
+    {
+        $request->validate([
+            'post_id' => 'required',
+        ]);
+
+        $post = Post::find($request->post_id);
+        $post->is_published = true;
+        $post->save();
+        Cache::forget('posts_'.$post->id);
+
+        return response()->json(['message' => 'Post published successfully'], 201);
+    }
+
+    public function unpublish(Request $request)
+    {
+        $request->validate([
+            'post_id' => 'required',
+        ]);
+
+        $post = Post::find($request->post_id);
+        $post->is_published = false;
+        $post->save();
+        Cache::forget('posts_'.$post->id);
+
+        return response()->json(['message' => 'Post unpublished successfully'], 201);
+    }
 }
