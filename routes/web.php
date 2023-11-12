@@ -27,7 +27,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'is_admin'])->group(func
     Route::get('/posts/{post}/edit', [AdminController::class, 'editPosts'])->name('admin.posts.edit');
 });
 
-Route::prefix('author-panel')->middleware(['auth'])->group(function () {
+Route::prefix('author-panel')->middleware(['auth', 'is_author'])->group(function () {
     Route::get('/', [AuthorController::class, 'index'])->name('authors.index');
     Route::get('/{post}/edit', [AuthorController::class, 'edit'])->name('authors.edit');
 });
