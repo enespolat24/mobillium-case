@@ -16,6 +16,8 @@ class AuthorController extends Controller
 
     public function edit(Post $post)
     {
+        $this->authorize('update', $post);
+
         return Inertia::render('Author/editPost', [
             'post' => $post,
         ]);

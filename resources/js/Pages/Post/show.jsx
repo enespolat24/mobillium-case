@@ -1,8 +1,8 @@
 import Navbar from "@/Components/Navbar";
-import { usePage, router } from "@inertiajs/react";
+import { usePage, router, Link } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Show({ auth, post }) {
+export default function Show({ auth, post, nextPost, prevPost }) {
     const [rating, setRating] = useState(0);
 
     const handleRatingChange = (value) => {
@@ -87,6 +87,18 @@ export default function Show({ auth, post }) {
                         <p className="text-gray-700">
                             Email: {post.author.email}
                         </p>
+                    </div>
+                    <div class="flex justify-between mt-4">
+                        <div class="text-indigo-600 hover:text-indigo-900">
+                            <Link href={route("posts.view", prevPost.slug)}>
+                                &larr; Previous post
+                            </Link>
+                        </div>
+                        <div class="text-indigo-600 hover:text-indigo-900">
+                            <Link href={route("posts.view", nextPost.slug)}>
+                                Next post &rarr;
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

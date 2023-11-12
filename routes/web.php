@@ -30,7 +30,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'is_admin'])->group(func
 
 Route::prefix('author-panel')->middleware(['auth', 'is_author'])->group(function () {
     Route::get('/', [AuthorController::class, 'index'])->name('authors.index');
-    Route::get('/{post}/edit', [AuthorController::class, 'edit'])->name('authors.edit');
+    Route::get('/{post}/edit', [AuthorController::class, 'edit'])->name('author.editPage');
 });
 
 Route::get('/dashboard', function () {
@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
 });
 Route::prefix('/posts')->group(function () {
     Route::get('/{post}', [PostController::class, 'view'])->name('posts.view');
+    Route::get('/page/create', [PostController::class, 'createPage'])->name('posts.createPage');
     Route::post('/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::post('/', [PostController::class, 'store'])->name('posts.store');
     Route::delete('/{post}', [PostController::class, 'destroy'])->name('posts.destroy');

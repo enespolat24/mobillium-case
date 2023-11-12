@@ -8,9 +8,26 @@ use Inertia\Inertia;
 
 class PostController extends Controller
 {
+    public function createPage()
+    {
+        return Inertia::render('Post/create');
+    }
+
+    public function create()
+    {
+        $this->authorize('create', Post::class);
+
+        Post::create(
+            [
+                'title' => request('title'),
+                'content' => request('content'),
+                'user_id' => Auth::user()->id,
+            ]
+        );
+    }
+
     public function edit(Post $post)
     {
-        $this->authorize('update', Auth::user(), $post);
         $post->fill([
             'title' => request('title'),
             'content' => request('content'),
@@ -25,15 +42,20 @@ class PostController extends Controller
         $post->view_count += 1;
         $post->save();
 
+        $PrevPost = Post::where('id', '<', $post->id)->orderBy('id', 'desc')->first();
+        $nextPost = Post::where('id', '>', $post->id)->orderBy('id')->first();
+
         return Inertia::render('Post/show', [
             'post' => $post->load('author', 'votes'),
+            'prevPost' => $PrevPost,
+            'nextPost' => $nextPost,
         ]);
 
     }
 
     public function destroy(Post $post)
     {
-        $this->authorize('delete', Auth::user(), $post);
+        $this->authorize('delete', $post);
         $post->delete();
     }
 }

@@ -18,16 +18,16 @@ class RoleAndPermissionSeeder extends Seeder
         $authorRole = Role::create(['name' => 'author']);
         $readerRole = Role::create(['name' => 'reader']);
 
-        Permission::create(['name' => 'create post']);
-        Permission::create(['name' => 'edit post']);
-        Permission::create(['name' => 'delete post']);
-        Permission::create(['name' => 'publish post']);
-        Permission::create(['name' => 'unpublish post']);
-        Permission::create(['name' => 'vote post']);
+        Permission::create(['name' => 'create_post']);
+        Permission::create(['name' => 'edit_post']);
+        Permission::create(['name' => 'delete_post']);
+        Permission::create(['name' => 'publish_post']);
+        Permission::create(['name' => 'unpublish_post']);
+        Permission::create(['name' => 'vote_post']);
 
         $adminRole->givePermissionTo(Permission::all());
-        $moderatorRole->givePermissionTo(['publish post', 'unpublish post']);
-        $authorRole->givePermissionTo(['create post', 'edit post', 'delete post']);
-        $readerRole->givePermissionTo(['vote post']);
+        $moderatorRole->givePermissionTo(['publish_post', 'unpublish_post']);
+        $authorRole->givePermissionTo(['create_post', 'edit_post', 'delete_post']);
+        $readerRole->givePermissionTo(['vote_post']);
     }
 }

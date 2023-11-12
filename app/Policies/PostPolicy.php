@@ -28,7 +28,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        return $user->hasRole('moderator') || ($user->hasRole('author') && $user->id === $post->user_id) || $user->hasRole('admin');
+        return $user->can('update_posts') || ($user->is($post->author));
     }
 
     /**
@@ -36,7 +36,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return ($user->hasRole('author') && $user->id === $post->user_id) || $user->hasRole('admin');
+        return $user->can('delete_posts') || ($user->is($post->author));
     }
 
     /**
@@ -44,6 +44,14 @@ class PostPolicy
      */
     public function publish(User $user)
     {
-        return $user->hasRole('moderator') || $user->hasRole('admin');
+        return $user->can('publish_posts');
+    }
+
+    /**
+     * @return bool
+     */
+    public function unpublish(User $user)
+    {
+        return $user->can('unpublish_posts');
     }
 }
