@@ -14,7 +14,7 @@ class PostController extends Controller
         $post->fill([
             'title' => request('title'),
             'content' => request('content'),
-            'is_published' => request('is_published') ? true : false,
+            'is_published' => request('is_published') ? true : false, //just in case
         ])->save();
 
         return redirect()->route('admin.posts.edit', $post->slug);
