@@ -18,9 +18,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//oauth desteği için laravel passport kullanacaktım ama sanctum ile ortak implementasyonları oldugu için teknik olarak
+//imkansız oldugunu fark ettim. inertia kullandığım için böyle bir problem yaşadım. kısıtlı sürem oldugu için uygulamayı
+//baştan yazmak istemedim bu yüzden insiyatif kullanıp laravel sanctum ile authorization işlemlerini yaptım.
 Route::prefix('/v1')->group(function () {
 
-    Route::post('auth/login/', [App\Http\Controllers\API\LoginApiController::class, 'index']);
+    Route::post('auth/login/', [App\Http\Controllers\API\LoginApiController::class, 'login']);
+    Route::post('auth/register/', [App\Http\Controllers\API\RegisterApiController::class, 'register']);
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('posts', App\Http\Controllers\API\PostApiController::class);

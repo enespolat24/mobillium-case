@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginApiController extends Controller
 {
-    public function index(Request $request)
+    public function login(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
