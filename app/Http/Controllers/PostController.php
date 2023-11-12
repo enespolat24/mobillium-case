@@ -42,6 +42,8 @@ class PostController extends Controller
     {
         if (Cache::has('post_'.$post->id)) {
             $post = Cache::get('post_'.$post->id);
+            $post->view_count += 1;
+            Cache::put('post_'.$post->id, $post, 60);
         } else {
             $post = $post->load('author', 'votes');
             Cache::put('post_'.$post->id, $post, 60);

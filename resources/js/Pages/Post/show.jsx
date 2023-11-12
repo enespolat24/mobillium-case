@@ -88,13 +88,13 @@ export default function Show({ auth, post, nextPost, prevPost }) {
                             Email: {post.author.email}
                         </p>
                     </div>
-                    <div class="flex justify-between mt-4">
-                        <div class="text-indigo-600 hover:text-indigo-900">
+                    <div className="flex justify-between mt-4">
+                        <div className="text-indigo-600 hover:text-indigo-900">
                             <Link href={route("posts.view", prevPost.slug)}>
                                 &larr; Previous post
                             </Link>
                         </div>
-                        <div class="text-indigo-600 hover:text-indigo-900">
+                        <div className="text-indigo-600 hover:text-indigo-900">
                             <Link href={route("posts.view", nextPost.slug)}>
                                 Next post &rarr;
                             </Link>
