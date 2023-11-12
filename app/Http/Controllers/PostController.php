@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -39,6 +40,13 @@ class PostController extends Controller
 
     public function view(Post $post)
     {
+        if (Cache::has('post_'.$post->id)) {
+            $post = Cache::get('post_'.$post->id);
+        } else {
+            $post = $post->load('author', 'votes');
+            Cache::put('post_'.$post->id, $post, 60);
+        }
+
         $post->view_count += 1;
         $post->save();
 
