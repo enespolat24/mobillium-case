@@ -25,7 +25,7 @@ Route::prefix('/v1')->group(function () {
 
     Route::post('auth/login/', [App\Http\Controllers\API\AuthApiController::class, 'login']);
     Route::post('auth/register/', [App\Http\Controllers\API\AuthApiController::class, 'register']);
-    Route::get('auth/token/', [App\Http\Controllers\API\AuthApiController::class, 'getToken'])->middleware('auth:sanctum');
+    Route::get('auth/logout/', [App\Http\Controllers\API\AuthApiController::class, 'logout'])->middleware('auth:sanctum');
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('posts', App\Http\Controllers\API\PostApiController::class);

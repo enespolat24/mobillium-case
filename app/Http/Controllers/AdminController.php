@@ -16,6 +16,7 @@ class AdminController extends Controller
 
     public function editPosts(Post $post)
     {
+        $this->authorize('update', $post);
 
         return Inertia::render('Admin/editPost', [
             'post' => $post,

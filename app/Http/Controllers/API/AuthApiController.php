@@ -51,17 +51,13 @@ class AuthApiController extends Controller
         return response()->json(['token' => $token, 'message' => 'User registered successfully'], 201);
     }
 
-    public function getToken()
+    public function logout()
     {
-        if (Cache::has('user_api_token_'.Auth::user()->id)) {
-            return response()->json(['token' => Cache::get('user_api_token_'.Auth::user()->id), 'message' => 'this is your token'], 201);
-        } else {
-            $user = auth()->user();
-            $token = $user->createToken('authToken')->plainTextToken;
-            Cache::put('user_api_token_'.$user->id, $token, 60);
+        $user = Auth::user();
+        $user->tokens()->delete();
+        Cache::forget('user_api_token_'.$user->id);
 
-            return response()->json(['token' => $token, 'message' => 'Token generated successfully'], 201);
-        }
+        return response()->json(['message' => 'User logged out successfully'], 200);
 
     }
 }

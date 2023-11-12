@@ -8,7 +8,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,10 +32,6 @@ Route::prefix('author-panel')->middleware(['auth', 'is_author'])->group(function
     Route::get('/{post}/edit', [AuthorController::class, 'edit'])->name('author.editPage');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -44,10 +39,10 @@ Route::middleware('auth')->group(function () {
 });
 Route::prefix('/posts')->group(function () {
     Route::get('/{post}', [PostController::class, 'view'])->name('posts.view');
-    Route::get('/page/create', [PostController::class, 'createPage'])->name('posts.createPage');
-    Route::post('/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
-    Route::post('/', [PostController::class, 'store'])->name('posts.store');
-    Route::delete('/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::get('/page/create', [PostController::class, 'createPage'])->name('posts.createPage')->middleware('auth');
+    Route::post('/{post}/edit', [PostController::class, 'edit'])->name('posts.edit')->middleware('auth');
+    Route::post('/', [PostController::class, 'store'])->name('posts.store')->middleware('auth');
+    Route::delete('/{post}', [PostController::class, 'destroy'])->name('posts.destroy')->middleware('auth');
 });
 
 Route::prefix('vote')->middleware(['auth'])->group(function () {
