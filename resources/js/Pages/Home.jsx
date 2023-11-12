@@ -2,18 +2,13 @@ import { Link } from "@inertiajs/react";
 import Navbar from "@/Components/Navbar";
 
 const Home = ({ auth, posts }) => {
-    console.log(posts);
-
     return (
         <>
             <Navbar auth={auth}></Navbar>
             <div className="max-w-4xl mx-auto p-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
                     {posts.data.map((post, key) => (
-                        <Link
-                            key={key}
-                            href={route("admin.posts.edit", post.slug)}
-                        >
+                        <Link key={key} href={route("posts.view", post.slug)}>
                             <div className="bg-white overflow-hidden shadow-sm rounded-lg">
                                 <div className="px-6 py-4">
                                     <div className="font-semibold text-xl mb-2">

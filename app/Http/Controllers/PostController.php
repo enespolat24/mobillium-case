@@ -23,7 +23,7 @@ class PostController extends Controller
         $post->view_count += 1;
         $post->save();
 
-        return Inertia::render('Posts/show', [
+        return Inertia::render('Post/show', [
             'post' => $post->load('author', 'votes'),
         ]);
 
