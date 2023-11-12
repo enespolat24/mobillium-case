@@ -23,8 +23,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //baştan yazmak istemedim bu yüzden insiyatif kullanıp laravel sanctum ile authorization işlemlerini yaptım.
 Route::prefix('/v1')->group(function () {
 
-    Route::post('auth/login/', [App\Http\Controllers\API\LoginApiController::class, 'login']);
-    Route::post('auth/register/', [App\Http\Controllers\API\RegisterApiController::class, 'register']);
+    Route::post('auth/login/', [App\Http\Controllers\API\AuthApiController::class, 'login']);
+    Route::post('auth/register/', [App\Http\Controllers\API\AuthApiController::class, 'register']);
+    Route::get('auth/token/', [App\Http\Controllers\API\AuthApiController::class, 'getToken'])->middleware('auth:sanctum');
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('posts', App\Http\Controllers\API\PostApiController::class);
