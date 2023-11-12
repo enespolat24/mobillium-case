@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -46,6 +47,10 @@ Route::prefix('/posts')->group(function () {
     Route::post('/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::post('/', [PostController::class, 'store'])->name('posts.store');
     Route::delete('/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+});
+
+Route::prefix('vote')->middleware(['auth'])->group(function () {
+    Route::post('/{post}', [VoteController::class, 'vote'])->name('vote.post');
 });
 
 require __DIR__.'/auth.php';

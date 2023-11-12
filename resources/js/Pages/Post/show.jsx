@@ -1,14 +1,31 @@
 import Navbar from "@/Components/Navbar";
+import { usePage, router } from "@inertiajs/react";
+import { useState } from "react";
 
 export default function Show({ auth, post }) {
+    const [rating, setRating] = useState(0);
+
+    const handleRatingChange = (value) => {
+        setRating(value);
+    };
+
     const date = new Date(post.created_at);
     const formattedDate = `${date.getFullYear()}-${String(
         date.getMonth() + 1
     ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        if (auth.user) {
+            router.post(route("vote.post", post), { rating: rating });
+        } else {
+            window.alert("Please login to rate this post!");
+        }
+    }
+
     return (
         <>
             <Navbar auth={auth} />
-
             <div className="max-w-4xl mx-auto p-8">
                 <div className="bg-white overflow-hidden shadow-sm rounded-lg">
                     <div className="px-6 py-4">
@@ -18,7 +35,6 @@ export default function Show({ auth, post }) {
                         <p className="text-gray-700 text-base leading-relaxed">
                             {post.content}
                         </p>
-
                         <div className="mt-4 flex justify-between items-center">
                             <p className="text-gray-600">
                                 View count: {post.view_count}
@@ -26,6 +42,36 @@ export default function Show({ auth, post }) {
                             <p className="text-gray-600">
                                 Rating: {post.rating}
                             </p>
+                        </div>
+                        <div className="mt-12">
+                            <p className="mb-2">Rate from 1 to 5:</p>
+                            <div className="flex space-x-2">
+                                {[1, 2, 3, 4, 5].map((value) => (
+                                    <label
+                                        key={value}
+                                        className="flex items-center"
+                                    >
+                                        <input
+                                            type="radio"
+                                            name="rating"
+                                            value={value}
+                                            checked={rating === value}
+                                            onChange={() =>
+                                                handleRatingChange(value)
+                                            }
+                                            className="form-radio h-5 w-5 text-blue-600"
+                                        />
+                                        <span className="ml-2">{value}</span>
+                                    </label>
+                                ))}
+                                <button
+                                    onClick={handleSubmit}
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                >
+                                    Rate
+                                </button>
+                            </div>
+                            <p className="mt-2">Selected Rating: {rating}</p>
                         </div>
                         <p className="mt-4 text-gray-600">
                             Published on {formattedDate}
@@ -41,7 +87,6 @@ export default function Show({ auth, post }) {
                         <p className="text-gray-700">
                             Email: {post.author.email}
                         </p>
-                        {/* Add more author details if available */}
                     </div>
                 </div>
             </div>

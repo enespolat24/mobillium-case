@@ -2,7 +2,6 @@ import { Link, router } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function EditPost({ post }) {
-    console.log(post.is_published);
     const [values, setValues] = useState({
         title: post.title,
         content: post.content,
