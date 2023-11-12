@@ -29,5 +29,7 @@ Route::prefix('/v1')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('posts', App\Http\Controllers\API\PostApiController::class);
+        Route::POST('post/publish{post}', App\Http\Controllers\API\PostPublishionApiController::class)->middleware('auth:sanctum');
+        Route::POST('post/unpublish{post}', App\Http\Controllers\API\PostPublishionApiController::class)->middleware('auth:sanctum');
     });
 });

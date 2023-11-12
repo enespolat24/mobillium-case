@@ -28,6 +28,8 @@ to compile frontend assets we need to run `npm run build` or `npm run dev``
 | api/v1/posts     | POST    | content:string? title:string?                              |
 | api/v1/posts     | PUT & PATCH     | content:string? title:string?                              |
 | api/v1/posts/{id}     | DELETE  | -                              |               |
+| api/v1/posts/publish/{id}     | POST  | -                              |               |
+| api/v1/posts/unpublish/{id}     | POST  | -                              |               |
 
 ## last notes
 ***I had intended to utilize Laravel Passport for OAuth support, but I discovered it wasn't compatible with Sanctum in Inertia.js. With time constraints in mind, I opted to stick with Sanctum instead of rewriting the entire project with Passport. It was a case of making the best decision under the circumstances of a less than ideal technology choice."***
