@@ -45,7 +45,7 @@ Route::prefix('/posts')->group(function () {
     Route::get('/{post}', [PostController::class, 'view'])->name('posts.view');
     Route::post('/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::post('/', [PostController::class, 'store'])->name('posts.store');
-    // Route::delete('/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::delete('/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 });
 
 require __DIR__.'/auth.php';
