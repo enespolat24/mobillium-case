@@ -7,13 +7,6 @@ use Inertia\Inertia;
 
 class PostController extends Controller
 {
-    public function index()
-    {
-        return Inertia::render('Admin/index', [
-            'posts' => Post::with('votes', 'author')->paginate(6),
-        ]);
-    }
-
     public function edit(Post $post)
     {
         $post->fill([
@@ -23,6 +16,17 @@ class PostController extends Controller
         ])->save();
 
         return redirect()->route('admin.posts.edit', $post->slug);
+    }
+
+    public function view(Post $post)
+    {
+        $post->view_count += 1;
+        $post->save();
+
+        return Inertia::render('Posts/show', [
+            'post' => $post->load('author', 'votes'),
+        ]);
+
     }
 
     public function destroy(Post $post)
