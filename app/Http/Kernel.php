@@ -38,9 +38,9 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
-            \App\Http\Middleware\CheckIfAdmin::class,
-            \App\Http\Middleware\CheckIfAuthor::class,
-            \App\Http\Middleware\CheckIfModerator::class,
+            // \App\Http\Middleware\CheckIfAdmin::class,
+            // \App\Http\Middleware\CheckIfAuthor::class,
+            // \App\Http\Middleware\CheckIfModerator::class,
         ],
 
         'api' => [
