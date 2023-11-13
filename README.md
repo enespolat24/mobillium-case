@@ -13,11 +13,13 @@
 ## how to setup project
 
 ***please run these commands***\
-`composer i`\
+`cp .env.example .env` and edit .env file \
+`composer install`\
 `php artisan migrate`\
 `php artisan db:seed`\
 `npm install`\
-`npm run build` or `npm run dev`
+`npm run build` or `npm run dev` \
+`php artisan serve` or use laravel valet.
 > if you're using brave browser you'll need to turn off blade shield because of the Vite
 
 ## how to run tests
