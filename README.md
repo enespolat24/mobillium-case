@@ -2,20 +2,26 @@
 
 
 ## technologies used
-- react.js with inertia.js
-- laravel 10
-- redis for caching
-- mysql for database
+- React.js with inertia.js
+- Laravel 10
+- Laravel sanctum for auth
+- Redis for caching
+- Vite for asset bundling
+- Mysql for database
 
 
 ## how to setup project
 
-first run : `composer i`
-then run `php artisan migrate`
-then seed the database using `php artisan db:seed`
-to install npm dependencies use `npm install`
-to compile frontend assets we need to run `npm run build` or `npm run dev``
-> if you're using brave browser you'll need to turn off blade shield
+***run these commands***
+`composer i`
+`php artisan migrate`
+`php artisan db:seed`
+`npm install`
+`npm run build` or `npm run dev`
+> if you're using brave browser you'll need to turn off blade shield because of the Vite
+
+## how to run tests
+please run `php artisan test`
 
 ## api endpoints: 
 
