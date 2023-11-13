@@ -13,11 +13,11 @@
 ## how to setup project
 
 ***run these commands***
-`composer i`
-`php artisan migrate`
-`php artisan db:seed`
-`npm install`
-`npm run build` or `npm run dev`
+`composer i`\
+`php artisan migrate`\
+`php artisan db:seed`\
+`npm install`\
+`npm run build` or `npm run dev`\
 > if you're using brave browser you'll need to turn off blade shield because of the Vite
 
 ## how to run tests
