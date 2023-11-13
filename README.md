@@ -12,7 +12,7 @@
 
 ## how to setup project
 
-***run these commands***
+***please run these commands***\
 `composer i`\
 `php artisan migrate`\
 `php artisan db:seed`\
